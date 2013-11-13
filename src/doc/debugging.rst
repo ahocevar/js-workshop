@@ -1,4 +1,4 @@
-.. _geoext.javascript.debugging:
+.. _javascript.debugging:
 
 Developing and Debugging JavaScript
 ===================================
@@ -132,7 +132,7 @@ Online Tools for Developing JavaScript
 
 When asking for help on Open Source project mailing lists, it can be useful to
 share code snippets. There are several tools available for this -
-http://pastebin.com/ is just one of many. But there are also tools that go
+http://gist.github.com/ is just one of many. But there are also tools that go
 beyond pasting code snippets, allowing to share small example applications.
 The most famous one is http://jsfiddle.net/.
 

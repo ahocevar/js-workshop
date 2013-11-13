@@ -1,7 +1,7 @@
-.. module:: geoext.javascript
-    :synopsis: Learn about JavaScript the way it is used in GeoExt.
+.. module:: javascript
+    :synopsis: Learn about JavaScript the way it is used in OpenLayers.
 
-.. _geoext.javascript:
+.. _javascript:
 
 JavaScript Basics for Geospatial Web Applications
 =================================================
@@ -17,13 +17,16 @@ web applications use JavaScript when running in a web browser.
 
 In this module, we will be learning about JavaScript as an object oriented
 language, with an eye on how it is used to build web applications with Ext JS,
-GeoExt and OpenLayers. The target audience for this module are software
-developers that are new to JavaScript.
+GeoExt and OpenLayers.
+
+The target audience for this module are software developers that are new to JavaScript. For readers without programming experience, we start with a short
+chapter on programming basics.
 
 .. toctree::
     :maxdepth: 1
     
+    Programming basics explained with JavaScript <programming>
     Developing and Debugging JavaScript <debugging>
     JavaScript, a Prototype-based Language <prototype>
-    Core Concepts of Ext JS, OpenLayers and GeoExt <concepts>
-    Laying Out Web Pages with Ext JS <layouts>
+    AJAX - Working with remote data <ajax>
+    Geolocation - Get the user's location with OpenLayers <geolocation>

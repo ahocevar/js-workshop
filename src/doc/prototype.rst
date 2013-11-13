@@ -1,4 +1,4 @@
-.. _geoext.javascript.prototype:
+.. _javascript.prototype:
 
 JavaScript, a Prototype-based Language
 ======================================
@@ -45,13 +45,13 @@ functions. Here is some code to show what this means:
             console.log(c); // true
         }
         inner(); // execute the inner function
-        console.log(a); // 6
+        console.log(a); // 5
         console.log(b); // 10
         console.log(c); // reference error - c is not defined
         console.log(window.c); // undefined. In a browser, window is the global scope.
     };
     outer(); // execute the outer function
-    console.log(a); // displays 6
+    console.log(a); // displays 5
 
 Wonder why the first :samp:`console.log(a)` in the inner function returns
 :token:`undefined`? When a variable a is defined in the scope of a function,
@@ -227,9 +227,7 @@ elements are called in the scope of the DOM element, we can use the
 Inheritance
 -----------
 
-JavaScript frameworks like Ext JS provide easy ways to create classes. But to
-understand how inheritance works, we'll take a glance at how it is handled in
-pure JavaScript:
+JavaScript frameworks sometimes provide easy ways to create classes. But to understand how inheritance works, we'll take a glance at how it is handled in pure JavaScript:
 
 .. code-block:: javascript
 

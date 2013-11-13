@@ -18,14 +18,14 @@
         <echo>Building docs.</echo>
 
         <copy todir="${src}/doc.tmp">
-            <fileset dir="${src}/doc" excludes="**/*.png"/>
+            <fileset dir="${src}/doc" excludes="**/*.png,**/*.jpg"/>
             <filterset>
                 <filter token="workshop_url" value="${host}/${ant.project.name}"/>
                 <filter token="geoserver_url" value="${host}/geoserver"/>
             </filterset>
         </copy>
         <copy todir="${src}/doc.tmp">
-            <fileset dir="${src}/doc" includes="**/*.png"/>
+            <fileset dir="${src}/doc" includes="**/*.png,**/*.jpg"/>
         </copy>
 
         <exec executable="sphinx-build" failonerror="true">
