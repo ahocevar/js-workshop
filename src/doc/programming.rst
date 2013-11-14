@@ -6,7 +6,8 @@ Programming basics explained with JavaScript
 Programming is a skill that requires your brain to be tuned into a special mode. It is similar to sitting in front of a pile of toy blocks, trying to build an arch:
 
 * Creativity to build something you want with what you have.
-* Anylatic capabilities to examine the different blocks and see where they fit. * Patience to pursue your goal through experimenting with different approaches until you are satisfied.
+* Analytic capabilities to examine the different blocks and see where they fit.
+* Patience to pursue your goal through experimenting with different approaches until you are satisfied.
 
 .. figure:: arch.jpg
 
