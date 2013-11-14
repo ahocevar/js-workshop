@@ -28,5 +28,6 @@ chapter on programming basics.
     Programming basics explained with JavaScript <programming>
     Developing and Debugging JavaScript <debugging>
     JavaScript, a Prototype-based Language <prototype>
+    Interacting with the DOM <dom>
     AJAX - Working with remote data <ajax>
     Geolocation - Get the user's location with OpenLayers <geolocation>

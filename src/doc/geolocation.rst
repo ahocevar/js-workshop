@@ -26,4 +26,5 @@ After a few seconds, we will have OpenLayers available. Now let's configure a Ge
       console.log(geolocation.getPosition());
     });
 
-As you can see, we display the position whenever it has changed. This is done in an asynchronous manner through an event handler (``geolocation.on(...)``).
+As you can see, we display the position whenever it has changed. This is done in an asynchronous manner through an event handler (``geolocation.on(...)``). To
+turn off tracking, we would call ``geolocation.setTracking(false);``.
