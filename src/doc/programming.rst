@@ -56,6 +56,16 @@ These include ``==`` (equals), ``===`` (identity), ``<`` (less than), ``>`` (gre
 
 Comparisons evaluate to `true` or `false`. These so-called boolean values are very important in programming, because they are used together with conditions that can control the flow of execution.
 
+Logical operators
+~~~~~~~~~~~~~~~~~
+
+The most common logical operators are ``&&`` (logical AND) and ``||`` (logical OR):
+
+.. code-block:: javascript
+
+  console.log(true && false); // false
+  console.log(true || false); // true
+
 Variables
 ---------
 
