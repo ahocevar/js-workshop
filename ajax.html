@@ -1,0 +1,154 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>AJAX - Working with remote data &mdash; JavaScript Workshop</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="JavaScript Workshop" href="index.html" />
+    <link rel="next" title="Geolocation - Get the user’s location wiith OpenLayers" href="geolocation.html" />
+    <link rel="prev" title="Interacting with the DOM" href="dom.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="geolocation.html" title="Geolocation - Get the user’s location wiith OpenLayers"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="dom.html" title="Interacting with the DOM"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">JavaScript Workshop</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="ajax-working-with-remote-data">
+<span id="javascript-ajax"></span><h1>AJAX - Working with remote data<a class="headerlink" href="#ajax-working-with-remote-data" title="Permalink to this headline">¶</a></h1>
+<p>AJAX is short for &#8220;Asynchronous JavaScript and XML&#8221;. It is a way for a web application to load data through the browser&#8217;s XMLHttpRequest API. The original idea of the XMLHttpRequest API was to load XML documents, but with JSON (JavaScript Object Notation) becoming popular, JSON is now the #1 payload handled by XMLHttpRequest.</p>
+<p>Let&#8217;s look at the parts of this concept in more detail, using an example.</p>
+<div class="section" id="the-example">
+<h2>The Example<a class="headerlink" href="#the-example" title="Permalink to this headline">¶</a></h2>
+<p>OpenStreetMap offers the Nominatim API for geocoding. Let&#8217;s use the API to find the coordinates of the Vienna University of Technology. This is the request url:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">url</span> <span class="o">=</span> <span class="s1">&#39;http://nominatim.openstreetmap.org/search?q=Vienna+University+of+Technology&amp;format=json&#39;</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="xmlhttprequest-xhr">
+<h2>XMLHttpRequest (XHR)<a class="headerlink" href="#xmlhttprequest-xhr" title="Permalink to this headline">¶</a></h2>
+<p>This is the API we use to send the request to the server:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">xhr</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">XMLHttpRequest</span><span class="p">();</span>
+<span class="nx">xhr</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="nx">url</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Look at the <tt class="docutils literal"><span class="pre">xhr.open(&quot;GET&quot;,</span> <span class="pre">url,</span> <span class="pre">true)</span></tt> line. &#8220;GET&#8221; is the HTTP verb to use (could also be &#8220;POST&#8221;, &#8220;PUT&#8221; or &#8220;DELETE&#8221;). &#8220;GET&#8221; is the kind of request that your browser also sends when you type a URL in the address bar. And the <tt class="docutils literal"><span class="pre">true</span></tt> argument after the url means that we want the request to be sent asynchronously.</p>
+</div>
+<div class="section" id="asynchronous">
+<h2>Asynchronous<a class="headerlink" href="#asynchronous" title="Permalink to this headline">¶</a></h2>
+<p>This is important, because using XHR with synchronous request freezes the browser until the response is available. When communicating with slow servers or loading lots of data, this can be a long time. So never use synchronous requests!</p>
+<p>However, dealing with asynchronous requests means that we do not have a continuos flow of operation any more. Let&#8217;s look at what this means:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">result</span><span class="p">;</span>
+<span class="nx">xhr</span><span class="p">.</span><span class="nx">onload</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">result</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">xhr</span><span class="p">.</span><span class="nx">responseText</span><span class="p">);</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">lat</span><span class="p">,</span> <span class="nx">result</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">lon</span><span class="p">);</span>
+<span class="p">};</span>
+<span class="nx">xhr</span><span class="p">.</span><span class="nx">send</span><span class="p">();</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Look at the last line of this snippet. What will be the value of the <tt class="docutils literal"><span class="pre">result</span></tt> here? Right. It will be <tt class="docutils literal"><span class="pre">undefined</span></tt>, because the response from the server is not here yet. So whatever we want to do with the response, we have to do it in the <tt class="docutils literal"><span class="pre">onload</span></tt> handler of the XHR.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">AJAX - Working with remote data</a><ul>
+<li><a class="reference internal" href="#the-example">The Example</a></li>
+<li><a class="reference internal" href="#xmlhttprequest-xhr">XMLHttpRequest (XHR)</a></li>
+<li><a class="reference internal" href="#asynchronous">Asynchronous</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="dom.html"
+                        title="previous chapter">Interacting with the DOM</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="geolocation.html"
+                        title="next chapter">Geolocation - Get the user&#8217;s location wiith OpenLayers</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="geolocation.html" title="Geolocation - Get the user’s location wiith OpenLayers"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="dom.html" title="Interacting with the DOM"
+             >previous</a> |</li>
+        <li><a href="index.html">JavaScript Workshop</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Boundless.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b3.
+    </div>
+  </body>
+</html>

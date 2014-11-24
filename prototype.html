@@ -1,0 +1,358 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>JavaScript, a Prototype-based Language &mdash; JavaScript Workshop</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="JavaScript Workshop" href="index.html" />
+    <link rel="next" title="Interacting with the DOM" href="dom.html" />
+    <link rel="prev" title="Developing and Debugging JavaScript" href="debugging.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="dom.html" title="Interacting with the DOM"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="debugging.html" title="Developing and Debugging JavaScript"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">JavaScript Workshop</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="javascript-a-prototype-based-language">
+<span id="javascript-prototype"></span><h1>JavaScript, a Prototype-based Language<a class="headerlink" href="#javascript-a-prototype-based-language" title="Permalink to this headline">¶</a></h1>
+<p>JavaScript, although the name might make us think so, is not a scripting flavor
+of Java. It is influenced by Java, and became an industry standard under the
+name of
+<a class="reference external" href="http://www.ecma-international.org/publications/standards/Ecma-262.htm">ECMAScript</a>
+soon after its creation in 1995.</p>
+<p>JavaScript can be characterized as a prototype-based language that is weakly
+typed and dynamic. In addition to object or prototype-based programming, it
+supports the scripting, imperative and functional paradigms.</p>
+<div class="section" id="variables-and-data-types">
+<h2>Variables and Data Types<a class="headerlink" href="#variables-and-data-types" title="Permalink to this headline">¶</a></h2>
+<p>JavaScript is a dynamic language, and any variable can hold any data type. In
+other words: JavaScript uses typed values, not typed variables.</p>
+<p>What&#8217;s more important about variables is that they are simply defined using the
+<tt class="xref std std-token docutils literal"><span class="pre">var</span></tt> keyword. If this keyword is omitted, the variable will be global.
+It is strongly recommended to always define a variable using the var keyword.
+JavaScript also has a concept of inner functions - functions can be nested.
+Using the <tt class="xref std std-token docutils literal"><span class="pre">var</span></tt> keyword in an inner function will create the variable in
+the scope of the inner function. Outer functions won&#8217;t have access to that
+variable, but the inner function will have access to variables of all its outer
+functions. Here is some code to show what this means:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">a</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">outer</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">a</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span> <span class="c1">// global</span>
+    <span class="kd">function</span> <span class="nx">inner</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">a</span><span class="p">);</span> <span class="c1">// 5 - access global through root object</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">a</span><span class="p">);</span> <span class="c1">// undefined, global unavailable because of local a</span>
+        <span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="s2">&quot;foo&quot;</span><span class="p">;</span> <span class="c1">// local variable a - does not affect global a</span>
+        <span class="nx">b</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span> <span class="c1">// no var keyword - global variable</span>
+        <span class="kd">var</span> <span class="nx">c</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span> <span class="c1">// local variable c - only available inside this function</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">a</span><span class="p">);</span> <span class="c1">// &quot;foo&quot;</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">b</span><span class="p">);</span> <span class="c1">// 10</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">c</span><span class="p">);</span> <span class="c1">// true</span>
+    <span class="p">}</span>
+    <span class="nx">inner</span><span class="p">();</span> <span class="c1">// execute the inner function</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">a</span><span class="p">);</span> <span class="c1">// 5</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">b</span><span class="p">);</span> <span class="c1">// 10</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">c</span><span class="p">);</span> <span class="c1">// reference error - c is not defined</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">c</span><span class="p">);</span> <span class="c1">// undefined. In a browser, window is the global scope.</span>
+<span class="p">};</span>
+<span class="nx">outer</span><span class="p">();</span> <span class="c1">// execute the outer function</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">a</span><span class="p">);</span> <span class="c1">// displays 5</span>
+</pre></div>
+</div>
+<p>Wonder why the first <tt class="samp docutils literal"><span class="pre">console.log(a)</span></tt> in the inner function returns
+<tt class="xref std std-token docutils literal"><span class="pre">undefined</span></tt>? When a variable a is defined in the scope of a function,
+any outer variable with the same name won&#8217;t be available, to protect it.</p>
+<p>In the above code snippet, we have already used all the 5 data types:</p>
+<ul class="simple">
+<li><tt class="xref std std-token docutils literal"><span class="pre">Number</span></tt>: A number, no matter if e.g. integer or float. The global
+variable <tt class="samp docutils literal"><span class="pre">a</span></tt> and <tt class="samp docutils literal"><span class="pre">b</span></tt>.</li>
+<li><tt class="xref std std-token docutils literal"><span class="pre">String</span></tt>: The inner function&#8217;s <tt class="samp docutils literal"><span class="pre">a</span></tt>.</li>
+<li><tt class="xref std std-token docutils literal"><span class="pre">Boolean</span></tt>: <tt class="samp docutils literal"><span class="pre">c</span></tt>.</li>
+<li><tt class="xref std std-token docutils literal"><span class="pre">Object</span></tt>: The root object. All other objects inherit from
+<tt class="xref std std-token docutils literal"><span class="pre">Object</span></tt>. <tt class="samp docutils literal"><span class="pre">window</span></tt>.</li>
+<li><tt class="xref std std-token docutils literal"><span class="pre">Function</span></tt>: First-class object, directly inheriting form the Object
+object. <tt class="samp docutils literal"><span class="pre">inner</span></tt> and <tt class="samp docutils literal"><span class="pre">outer</span></tt>. Functions are declared with the
+<tt class="xref std std-token docutils literal"><span class="pre">function</span></tt> keyword. If followed by a name, the function will be
+assigned to a local variable of that name (see <tt class="samp docutils literal"><span class="pre">inner</span></tt> above). If
+directly followed by the implementation, it will be an anonymous function,
+which can be assigned to a variable (see <tt class="samp docutils literal"><span class="pre">outer</span></tt> above). Functions have
+an execution context (scope), which can be referenced inside the function
+using the <tt class="samp docutils literal"><span class="pre">this</span></tt> keyword.</li>
+</ul>
+<p>JavaScript makes a difference between properties or variables that are
+uninitialized (<tt class="xref std std-token docutils literal"><span class="pre">undefined</span></tt>) or intentionally set to <tt class="xref std std-token docutils literal"><span class="pre">null</span></tt>.</p>
+</div>
+<div class="section" id="truth-equality-and-type-casting">
+<h2>Truth, Equality and Type Casting<a class="headerlink" href="#truth-equality-and-type-casting" title="Permalink to this headline">¶</a></h2>
+<p>As a weakly typed language, JavaScript has the advantage that you can check
+apples and oranges for equality, using the <tt class="xref std std-token docutils literal"><span class="pre">==</span></tt> operator (<tt class="xref std std-token docutils literal"><span class="pre">===</span></tt>
+does a strict check for equality). But there are also common pitfalls with
+this. See the following examples:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mi">0</span> <span class="o">==</span> <span class="kc">false</span><span class="p">);</span> <span class="c1">// true</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;0&quot;</span> <span class="o">==</span> <span class="kc">false</span><span class="p">);</span> <span class="c1">// true</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;&quot;</span> <span class="o">==</span> <span class="kc">false</span><span class="p">);</span> <span class="c1">// true</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mi">1</span> <span class="o">==</span> <span class="s2">&quot;1&quot;</span><span class="p">);</span> <span class="c1">// true</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mi">1</span> <span class="o">==</span> <span class="kc">true</span><span class="p">);</span> <span class="c1">// true</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;1&quot;</span> <span class="o">==</span> <span class="kc">true</span><span class="p">);</span> <span class="c1">// true</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;2&quot;</span> <span class="o">==</span> <span class="kc">true</span><span class="p">);</span> <span class="c1">// false</span>
+</pre></div>
+</div>
+<p>The above examples are all checks for equality, with implicit type casting to
+make the values comparable. Wonder why the last one is not true? Because &#8220;2&#8221; is
+not cast to <tt class="xref std std-token docutils literal"><span class="pre">Boolean</span></tt> to make it comparable with <tt class="xref std std-token docutils literal"><span class="pre">true</span></tt>. Instead,
+both sides must be either cast to <tt class="xref std std-token docutils literal"><span class="pre">Number</span></tt> (<tt class="samp docutils literal"><span class="pre">2</span> <span class="pre">==</span> <span class="pre">1</span></tt>) or
+<tt class="xref std std-token docutils literal"><span class="pre">String</span></tt> (<tt class="samp docutils literal"><span class="pre">&quot;2&quot;</span> <span class="pre">==</span> <span class="pre">&quot;true&quot;</span></tt>). This is why I recommend to use the
+strict <tt class="xref std std-token docutils literal"><span class="pre">===</span></tt> comparison operator.</p>
+<p>Type casting to <tt class="xref std std-token docutils literal"><span class="pre">Boolean</span></tt>, which happens e.g. in <tt class="xref std std-token docutils literal"><span class="pre">if</span></tt> statements
+without comparison operators (<tt class="samp docutils literal"><span class="pre">if</span> <span class="pre">(&quot;foo&quot;)</span> <em> <span class="pre">/*</span> <span class="pre">do</span> <span class="pre">something</span> <span class="pre">*/</span> </em></tt>), has
+some surprises. When something evaluates to false, we talk about falsey,
+otherwise about truthy. There are five values in addition to <tt class="xref std std-token docutils literal"><span class="pre">false</span></tt>
+that are falsey:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nb">Boolean</span><span class="p">(</span><span class="kc">undefined</span><span class="p">));</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nb">Boolean</span><span class="p">(</span><span class="kc">null</span><span class="p">));</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nb">Boolean</span><span class="p">(</span><span class="kc">NaN</span><span class="p">));</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nb">Boolean</span><span class="p">(</span><span class="mi">0</span><span class="p">));</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nb">Boolean</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">));</span>
+</pre></div>
+</div>
+<p>A typical mistake is to do a truthy check to see whether an argument was
+provided:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">function</span> <span class="nx">doIfSet</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;doing something&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="nx">doIfSet</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>If our intention was to see &#8220;doing something&#8221; on the console when doIfSet was
+called with an argument, then we&#8217;ll be disappointed, because the
+<strong class="command">console.log</strong> will not be executed. Instead, we should have done the
+following:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">function</span> <span class="nx">doIfSet</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">value</span> <span class="o">!==</span> <span class="kc">undefined</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;doing something&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="nx">doIfSet</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="closures">
+<h2>Closures<a class="headerlink" href="#closures" title="Permalink to this headline">¶</a></h2>
+<p>When a reference to an inner function is kept beyond its outer function, we
+talk about a closure. Accidental closures can cause memory leaks when they are
+created too often. But on the other hand, closures are a very powerful feature
+of JavaScript:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">function</span> <span class="nx">outer</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">return</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">count</span><span class="o">++</span><span class="p">;</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">name</span> <span class="o">+</span> <span class="s2">&quot; called &quot;</span> <span class="o">+</span> <span class="nx">count</span> <span class="o">+</span> <span class="s2">&quot; times.&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="kd">var</span> <span class="nx">john</span> <span class="o">=</span> <span class="nx">outer</span><span class="p">(</span><span class="s2">&quot;John&quot;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">jeff</span> <span class="o">=</span> <span class="nx">outer</span><span class="p">(</span><span class="s2">&quot;Jeff&quot;</span><span class="p">);</span>
+<span class="nx">john</span><span class="p">();</span> <span class="c1">// &quot;John called 1 times.&quot;</span>
+<span class="nx">jeff</span><span class="p">();</span> <span class="c1">// &quot;Jeff called 1 times.&quot;</span>
+<span class="nx">john</span><span class="p">();</span> <span class="c1">// &quot;John called 2 times.&quot;</span>
+</pre></div>
+</div>
+<p>In this example, the function that <tt class="samp docutils literal"><span class="pre">outer</span></tt> returns is a closure. Memory
+will be allocated any time <tt class="samp docutils literal"><span class="pre">outer</span></tt> is called, and a new function with a
+private variable <tt class="samp docutils literal"><span class="pre">count</span></tt> and an implicit private variable <tt class="samp docutils literal"><span class="pre">name</span></tt>
+from the argument of the outer function will be returned. These private
+variables cannot be accessed from outside the outer function, but are exposed
+through the closure function.</p>
+<p>Let&#8217;s look at an example for an accidental closure that can cause memory leaks:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">function</span> <span class="nx">addClickHandler</span><span class="p">(</span><span class="nx">el</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">el</span><span class="p">.</span><span class="nx">onclick</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">el</span><span class="p">.</span><span class="nx">textContent</span> <span class="o">+</span> <span class="s2">&quot; clicked.&quot;</span><span class="p">);</span>
+    <span class="p">};</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">listItems</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s2">&quot;li&quot;</span><span class="p">);</span>
+<span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="nx">ii</span><span class="o">=</span><span class="nx">listItems</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">&lt;</span><span class="nx">ii</span><span class="p">;</span> <span class="o">++</span><span class="nx">i</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">addClickHandler</span><span class="p">(</span><span class="nx">listItems</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The intention of the above was to add behavior to all <tt class="xref std std-token docutils literal"><span class="pre">li</span></tt> (list item)
+elements of a web page, while keeping the handler function private. Now if a
+page has hundreds of list elements, the click handler function that
+<tt class="xref std std-token docutils literal"><span class="pre">addClickHandler</span></tt> returns will be generated hundreds of times. Memory
+needs to be allocated for each. To avoid this, the above example should be
+modified to look like this:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">addClickHandler</span> <span class="o">=</span> <span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">function</span> <span class="nx">clickHandler</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">textContent</span> <span class="o">+</span> <span class="s2">&quot; clicked.&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="kd">function</span><span class="p">(</span><span class="nx">el</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">el</span><span class="p">.</span><span class="nx">onclick</span> <span class="o">=</span> <span class="nx">clickHandler</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">})();</span>
+
+<span class="kd">var</span> <span class="nx">listItems</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s2">&quot;li&quot;</span><span class="p">);</span>
+<span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="nx">ii</span><span class="o">=</span><span class="nx">listItems</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">&lt;</span><span class="nx">ii</span><span class="p">;</span> <span class="o">++</span><span class="nx">i</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">addClickHandler</span><span class="p">(</span><span class="nx">listItems</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Instead of creating a closure with every call of <tt class="xref std std-token docutils literal"><span class="pre">addClickHandler</span></tt>, we
+now create a single closure - the <tt class="xref std std-token docutils literal"><span class="pre">addClickHandler</span></tt> function - by
+executing an anonymous function
+(<tt class="samp docutils literal"><span class="pre">(function()</span> <em> <span class="pre">/*</span> <span class="pre">do</span> <span class="pre">something</span> <span class="pre">*/</span> </em><span class="pre">)()</span></tt>). Since event handlers for DOM
+elements are called in the scope of the DOM element, we can use the
+<tt class="samp docutils literal"><span class="pre">this</span></tt> keyword to access the element inside the handler function.</p>
+</div>
+<div class="section" id="inheritance">
+<h2>Inheritance<a class="headerlink" href="#inheritance" title="Permalink to this headline">¶</a></h2>
+<p>JavaScript frameworks sometimes provide easy ways to create classes. But to understand how inheritance works, we&#8217;ll take a glance at how it is handled in pure JavaScript:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">function</span> <span class="nx">Creature</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">name</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">alive</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nx">Creature</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">live</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">alive</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+<span class="p">};</span>
+<span class="nx">Creature</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">die</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">alive</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="kd">function</span> <span class="nx">Animal</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">hungry</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="c1">// call the constructor of the superclass</span>
+    <span class="nx">Creature</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">constructor</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">arguments</span><span class="p">);</span>
+<span class="p">};</span>
+<span class="nx">Animal</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Creature</span><span class="p">;</span> <span class="c1">// inherit from Creature</span>
+<span class="nx">Animal</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">constructor</span> <span class="o">=</span> <span class="nx">Animal</span><span class="p">;</span> <span class="c1">// don&#39;t use Creature&#39;s constructor</span>
+<span class="nx">Animal</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">eat</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">alive</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">hungry</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+<span class="nx">Animal</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">die</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">hungry</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+    <span class="nx">Creature</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">die</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">arguments</span><span class="p">);</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>The above creates a class <tt class="samp docutils literal"><span class="pre">Creature</span></tt>. A creature has a name, can live and
+die, and we can query the creature for its alive status. <tt class="samp docutils literal"><span class="pre">Animal</span></tt> is a
+subclass of <tt class="samp docutils literal"><span class="pre">Creature</span></tt>, which is hungry and can eat if it is alive.</p>
+<p>As we can see, inheritance in JavaScript works by making the prototype of the
+subclass an instance of its superclass. To make sure that we have a correct
+inheritance chain, we can use the <tt class="xref std std-token docutils literal"><span class="pre">instanceof</span></tt> keyword:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">creature</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Creature</span><span class="p">(</span><span class="s2">&quot;myCreature&quot;</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">creature</span> <span class="nx">instancoef</span> <span class="nx">Creature</span><span class="p">);</span> <span class="c1">// true</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">creature</span> <span class="k">instanceof</span> <span class="nx">Animal</span><span class="p">);</span> <span class="c1">// false</span>
+<span class="kd">var</span> <span class="nx">animal</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Animal</span><span class="p">(</span><span class="s2">&quot;myAnimal&quot;</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">animal</span> <span class="k">instanceof</span> <span class="nx">Animal</span><span class="p">);</span> <span class="c1">// true</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">animal</span> <span class="k">instanceof</span> <span class="nx">Creature</span><span class="p">);</span> <span class="c1">// true</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">JavaScript, a Prototype-based Language</a><ul>
+<li><a class="reference internal" href="#variables-and-data-types">Variables and Data Types</a></li>
+<li><a class="reference internal" href="#truth-equality-and-type-casting">Truth, Equality and Type Casting</a></li>
+<li><a class="reference internal" href="#closures">Closures</a></li>
+<li><a class="reference internal" href="#inheritance">Inheritance</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="debugging.html"
+                        title="previous chapter">Developing and Debugging JavaScript</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="dom.html"
+                        title="next chapter">Interacting with the DOM</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="dom.html" title="Interacting with the DOM"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="debugging.html" title="Developing and Debugging JavaScript"
+             >previous</a> |</li>
+        <li><a href="index.html">JavaScript Workshop</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Boundless.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b3.
+    </div>
+  </body>
+</html>

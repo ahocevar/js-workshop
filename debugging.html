@@ -1,0 +1,246 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Developing and Debugging JavaScript &mdash; JavaScript Workshop</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="JavaScript Workshop" href="index.html" />
+    <link rel="next" title="JavaScript, a Prototype-based Language" href="prototype.html" />
+    <link rel="prev" title="Programming basics explained with JavaScript" href="programming.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="prototype.html" title="JavaScript, a Prototype-based Language"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="programming.html" title="Programming basics explained with JavaScript"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">JavaScript Workshop</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="developing-and-debugging-javascript">
+<span id="javascript-debugging"></span><h1>Developing and Debugging JavaScript<a class="headerlink" href="#developing-and-debugging-javascript" title="Permalink to this headline">¶</a></h1>
+<p>Until a few years ago, debugging JavaScript in web sites was painful: write
+code in a text editor, add <strong class="command">alert</strong> statements to inspect values, and
+iterate until things work.</p>
+<p>The text editor is still the primary tool for JavaScript developers, but these
+days with syntax highlighting, code completion and other language specific
+tools. Depending on where developers come from, vi, UltraEdit, TextMate or
+GEdit are popular choices. There are also plugins for IDEs like Eclipse, or
+complete Eclipse distributions made for JavaScript development, like Aptana
+Studio.</p>
+<p>With JavaScript now being at least equally important as HTML for creating web
+sites, all major browsers include a debugger or have one available as a plugin.
+For this workshop, we&#8217;ll be using the WebKit debugger, which is included in
+Google Chrome and Safari. For Firefox, the Firebug plugin provides similar
+functionality, and Internet Explorer &gt;= 8 has its Developer Tools as well.</p>
+<div class="section" id="getting-familiar-with-the-chrome-developer-tools">
+<h2>Getting Familiar with the Chrome Developer Tools<a class="headerlink" href="#getting-familiar-with-the-chrome-developer-tools" title="Permalink to this headline">¶</a></h2>
+<p>To launch the Developer Tools in Google Chrome, load the web page you want to
+debug (e.g. <a class="reference external" href="http://openlayers.org/dev/examples/example.html">http://openlayers.org/dev/examples/example.html</a>), and select Tools
+&gt; Developer Tools from the wrench menu.</p>
+<div class="figure">
+<img alt="_images/debugger1.png" src="_images/debugger1.png" />
+<p class="caption">Chrome Developer Tools at the bottom of a browser window</p>
+</div>
+<p>The Developer Tools can also be detached from the browser window we&#8217;re
+debugging, by clicking the screen icon in the bottom left corner of the
+Developer Tools.</p>
+<p>The first tab, <em class="guilabel">Elements</em>, is useful for inspecting the current state
+of the DOM and to see the applied styles from all stylesheet resources. Note
+that both the DOM and the styles can be modified in this tab, to see how they
+would affect the appearance of the page. Note, however, that these changes
+cannot be persisted to the source, so they are only temporary.</p>
+<p>The second tab, <em class="guilabel">Resources</em>, gives an overview of all resources that
+the content of the browser window was created from - including browser
+databases, cache and cookies.</p>
+<p>The <em class="guilabel">Network</em> tab is useful for investigating all traffic between
+browser and servers. Every request is listed, and has a detailed view showing
+request and response headers, query string parameters, and request and response
+data.</p>
+<p>The <em class="guilabel">Scripts</em> tab is a feature rich JavaScript debugger, which we
+will cover in more detail later. It is accompanied by a JavaScript console,
+which can either be selected using the &#8220;Console&#8221; tab, or added to any other
+tab by clicking on the <em class="guilabel">&gt;≡</em> symbol.</p>
+<p>Finally, there are three tabs for performance tuning and profiling
+(<em class="guilabel">Timeline</em>, <em class="guilabel">Profiles</em> and <em class="guilabel">Audits</em>), which we
+won&#8217;t be using in this workshop.</p>
+</div>
+<div class="section" id="working-with-the-javascript-debugger">
+<h2>Working with the JavaScript Debugger<a class="headerlink" href="#working-with-the-javascript-debugger" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="using-the-console">
+<h3>Using the Console<a class="headerlink" href="#using-the-console" title="Permalink to this headline">¶</a></h3>
+<p>The console even makes sense when not debugging, e.g. just for trying out code
+snippets. It also supports copying and pasting. Line breaks can be added with
+<tt class="kbd docutils literal"><span class="pre">Alt+Return</span></tt>. Most of the code snippets in the following sections can be
+tried out by pasting them into the console.</p>
+</div>
+<div class="section" id="selecting-files-to-show-in-the-code-panel">
+<h3>Selecting Files to Show in the Code Panel<a class="headerlink" href="#selecting-files-to-show-in-the-code-panel" title="Permalink to this headline">¶</a></h3>
+<p>On the top left, there is a dropdown with all JavaScript resources for the
+current web page. Let&#8217;s select OpenLayers.js from this dropdown. We can now
+see the contents of the OpenLayers.js file in the main panel of the debugger.
+If we scroll down, we see that the script is minified, so the lines are very
+long. This is inconvenient when we want to read the code or set breakpoints.
+But fortunately we can add meaningful line breaks and indents by clicking the
+<em class="guilabel">{}</em> icon at the bottom of the code panel.</p>
+</div>
+<div class="section" id="stopping-javascript-execution-on-errors">
+<h3>Stopping JavaScript Execution on Errors<a class="headerlink" href="#stopping-javascript-execution-on-errors" title="Permalink to this headline">¶</a></h3>
+<p>When running a web application and an error occurs, the Developer Tools list
+the number of errors with a red <em class="guilabel">x</em> in the bottom right corner. The
+console gives an rough explanation of each error. The Developer Tools have two
+settings for stopping execution, so the developer can do an inspection of the
+application state right before the error occurs. When clicking the Stop/Pause
+button in the bottom left of the JavaScript code panel once, execution will be
+stopped on any error. When clicking again, it will only stop on unhandled
+errors (i.e. those that don&#8217;t have a try/catch block around them).</p>
+</div>
+<div class="section" id="setting-breakpoints">
+<h3>Setting Breakpoints<a class="headerlink" href="#setting-breakpoints" title="Permalink to this headline">¶</a></h3>
+<p>In addition to the usual way of setting breakpoints by clicking on a line
+number in the code panel, the Chrome Developer tools support breakpoints for
+DOM manipulation (to be set in the <em class="guilabel">Elements</em> tab, with a right click
+on a DOM element), XHR requests (to be set by providing a URL substring) and
+browser events. All these kinds of breakpoints can be controlled with the panel
+right of the code panel in the <em class="guilabel">Scripts</em> tab.</p>
+<p>JavaScript breakpoints can be conditional. To set a conditional breakpoint,
+right-click on the line number instead of just clicking on it.</p>
+</div>
+<div class="section" id="watching-expressions-and-navigating-the-stack-trace">
+<h3>Watching Expressions and Navigating the Stack Trace<a class="headerlink" href="#watching-expressions-and-navigating-the-stack-trace" title="Permalink to this headline">¶</a></h3>
+<p>Once execution is halted at a breakpoint, the panel on the right of the code
+panel allows us to watch expressions and browse the stack trace. When clicking
+a function in the stack trace, the code panel will show its code, and the scope
+of the console and for watching expressions will be switched to that function.</p>
+</div>
+<div class="section" id="console-logging-and-programmatic-breakpoints">
+<h3>Console Logging and Programmatic Breakpoints<a class="headerlink" href="#console-logging-and-programmatic-breakpoints" title="Permalink to this headline">¶</a></h3>
+<p>To log values to the console, use <tt class="samp docutils literal"><span class="pre">console.log()</span></tt>. There are also other
+console statements that are useful for profiling, but <strong class="command">console.log</strong> is
+the most important one.</p>
+<p>To programmatically add a breakpoint, add the <tt class="samp docutils literal"><span class="pre">debugger</span></tt> keyword to your
+JavaScript code.</p>
+</div>
+</div>
+<div class="section" id="online-tools-for-developing-javascript">
+<h2>Online Tools for Developing JavaScript<a class="headerlink" href="#online-tools-for-developing-javascript" title="Permalink to this headline">¶</a></h2>
+<p>When asking for help on Open Source project mailing lists, it can be useful to
+share code snippets. There are several tools available for this -
+<a class="reference external" href="http://gist.github.com/">http://gist.github.com/</a> is just one of many. But there are also tools that go
+beyond pasting code snippets, allowing to share small example applications.
+The most famous one is <a class="reference external" href="http://jsfiddle.net/">http://jsfiddle.net/</a>.</p>
+<div class="figure">
+<img alt="_images/jsfiddle1.png" src="_images/jsfiddle1.png" />
+<p class="caption">jsFiddle with extra editors for HTML, CSS and JavaScript</p>
+</div>
+<p>For even more web centric development and sharing full web applications on the
+web, Cloud9 (<a class="reference external" href="http://c9.io/">http://c9.io/</a>) is a full web based JavaScript IDE.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Developing and Debugging JavaScript</a><ul>
+<li><a class="reference internal" href="#getting-familiar-with-the-chrome-developer-tools">Getting Familiar with the Chrome Developer Tools</a></li>
+<li><a class="reference internal" href="#working-with-the-javascript-debugger">Working with the JavaScript Debugger</a><ul>
+<li><a class="reference internal" href="#using-the-console">Using the Console</a></li>
+<li><a class="reference internal" href="#selecting-files-to-show-in-the-code-panel">Selecting Files to Show in the Code Panel</a></li>
+<li><a class="reference internal" href="#stopping-javascript-execution-on-errors">Stopping JavaScript Execution on Errors</a></li>
+<li><a class="reference internal" href="#setting-breakpoints">Setting Breakpoints</a></li>
+<li><a class="reference internal" href="#watching-expressions-and-navigating-the-stack-trace">Watching Expressions and Navigating the Stack Trace</a></li>
+<li><a class="reference internal" href="#console-logging-and-programmatic-breakpoints">Console Logging and Programmatic Breakpoints</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#online-tools-for-developing-javascript">Online Tools for Developing JavaScript</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="programming.html"
+                        title="previous chapter">Programming basics explained with JavaScript</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="prototype.html"
+                        title="next chapter">JavaScript, a Prototype-based Language</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="prototype.html" title="JavaScript, a Prototype-based Language"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="programming.html" title="Programming basics explained with JavaScript"
+             >previous</a> |</li>
+        <li><a href="index.html">JavaScript Workshop</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Boundless.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b3.
+    </div>
+  </body>
+</html>

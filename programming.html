@@ -1,0 +1,265 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Programming basics explained with JavaScript &mdash; JavaScript Workshop</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="JavaScript Workshop" href="index.html" />
+    <link rel="next" title="Developing and Debugging JavaScript" href="debugging.html" />
+    <link rel="prev" title="JavaScript Basics for Geospatial Web Applications" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="debugging.html" title="Developing and Debugging JavaScript"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="JavaScript Basics for Geospatial Web Applications"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">JavaScript Workshop</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="programming-basics-explained-with-javascript">
+<span id="javascript-programming"></span><h1>Programming basics explained with JavaScript<a class="headerlink" href="#programming-basics-explained-with-javascript" title="Permalink to this headline">¶</a></h1>
+<p>Programming is a skill that requires your brain to be tuned into a special mode. It is similar to sitting in front of a pile of toy blocks, trying to build an arch:</p>
+<ul class="simple">
+<li>Creativity to build something you want with what you have.</li>
+<li>Analytic capabilities to examine the different blocks and see where they fit.</li>
+<li>Patience to pursue your goal through experimenting with different approaches until you are satisfied.</li>
+</ul>
+<div class="figure">
+<img alt="_images/arch.jpg" src="_images/arch.jpg" />
+<p class="caption">Credit: <a class="reference external" href="http://www.etsy.com/shop/zenblocks">zenblocks</a></p>
+</div>
+<p>The building blocks of most programming languages are similar, and are different only in their syntax. Here we will get familiar with the building blocks in JavaScript.</p>
+<div class="section" id="getting-started">
+<h2>Getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h2>
+<p>JavaScript is the language of the web, so every browser is able to execute it. Most browsers come with something called like &#8220;Develpment Tools&#8221;. These tools include a console, and all snippets in this chapter can be tried out in the console by simply typing them at the &#8216;&gt;&#8217; prompt.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Hello World&quot;</span><span class="p">);</span> <span class="c1">// prints &quot;Hello World&quot;</span>
+</pre></div>
+</div>
+<p>This prints &#8220;Hello World&#8221; to the console. Congratulations, you just successfully executed your first line of JavaScript. Note the <tt class="docutils literal"><span class="pre">//</span></tt>. This precedes comments - things that the machine does not read, but are important to
+the developer. For comments that span more than a single line, use this:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="cm">/* This is a comment</span>
+<span class="cm">   longer than one line */</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="operators-math-but-not-only">
+<h2>Operators - Math, but not only<a class="headerlink" href="#operators-math-but-not-only" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="basic-operators">
+<h3>Basic operators<a class="headerlink" href="#basic-operators" title="Permalink to this headline">¶</a></h3>
+<p>To add and to subtract are the most basic tasks that are expressed with operators:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">2</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Hello&quot;</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="s2">&quot;World&quot;</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mi">5</span> <span class="o">-</span> <span class="mi">3</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Obviously the <tt class="docutils literal"><span class="pre">+</span></tt> operator is also used to concatenate strings (coding jargon for text).</p>
+<p>Other math operators include <tt class="docutils literal"><span class="pre">*</span></tt> (multiplication), <tt class="docutils literal"><span class="pre">/</span></tt> (division) and <tt class="docutils literal"><span class="pre">%</span></tt> (modulo).</p>
+</div>
+<div class="section" id="comparison-operators">
+<h3>Comparison operators<a class="headerlink" href="#comparison-operators" title="Permalink to this headline">¶</a></h3>
+<p>These include <tt class="docutils literal"><span class="pre">==</span></tt> (equals), <tt class="docutils literal"><span class="pre">===</span></tt> (identity), <tt class="docutils literal"><span class="pre">&lt;</span></tt> (less than), <tt class="docutils literal"><span class="pre">&gt;</span></tt> (greater than), <tt class="docutils literal"><span class="pre">&lt;=</span></tt> (less or equal than), <tt class="docutils literal"><span class="pre">&gt;=</span></tt> (greater or equal than).</p>
+<p>Comparisons evaluate to <cite>true</cite> or <cite>false</cite>. These so-called boolean values are very important in programming, because they are used together with conditions that can control the flow of execution.</p>
+</div>
+<div class="section" id="logical-operators">
+<h3>Logical operators<a class="headerlink" href="#logical-operators" title="Permalink to this headline">¶</a></h3>
+<p>The most common logical operators are <tt class="docutils literal"><span class="pre">&amp;&amp;</span></tt> (logical AND) and <tt class="docutils literal"><span class="pre">||</span></tt> (logical OR):</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="kc">true</span> <span class="o">&amp;&amp;</span> <span class="kc">false</span><span class="p">);</span> <span class="c1">// false</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="kc">true</span> <span class="o">||</span> <span class="kc">false</span><span class="p">);</span> <span class="c1">// true</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="variables">
+<h2>Variables<a class="headerlink" href="#variables" title="Permalink to this headline">¶</a></h2>
+<p>Variables are key to programming. They are used to store values for later use. The <tt class="docutils literal"><span class="pre">=</span></tt> operator is used to assign values to variables.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">a</span> <span class="o">+</span> <span class="nx">b</span><span class="p">);</span>
+<span class="nx">a</span> <span class="o">=</span> <span class="nx">a</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span> <span class="c1">// can also be written as &quot;a += 1&quot; or &quot;++a&quot;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="flow-of-execution">
+<h2>Flow of execution<a class="headerlink" href="#flow-of-execution" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="conditional-execution">
+<h3>Conditional execution<a class="headerlink" href="#conditional-execution" title="Permalink to this headline">¶</a></h3>
+<p>When something is to be executed conditionally, the <tt class="docutils literal"><span class="pre">if</span></tt>-Statement is used. There is also an <tt class="docutils literal"><span class="pre">else</span></tt> to handle the case where the condition is not met.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">();</span> <span class="c1">// generates a value between 0 and 1</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">a</span> <span class="o">&gt;</span> <span class="mf">0.5</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// curly braces wrap a block</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;The random number is greater than 0.5&quot;</span><span class="p">);</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;The random number is 0.5 or less&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The above code will examine the random number assigned to the variable a, and print a message saying whether the number was greater than 0.5 or not.</p>
+</div>
+<div class="section" id="iterate-over-a-block">
+<h3>Iterate over a block<a class="headerlink" href="#iterate-over-a-block" title="Permalink to this headline">¶</a></h3>
+<p>The most commonly used iteration method is the <tt class="docutils literal"><span class="pre">for</span></tt> loop. It can create an
+iterator, which is usually an increasing number:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;=</span> <span class="mi">5</span><span class="p">;</span> <span class="o">++</span><span class="nx">i</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">i</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>This prints the numbers from 1 to 5 to the console. We will see other flavours of the <tt class="docutils literal"><span class="pre">for</span></tt> loop below.</p>
+</div>
+</div>
+<div class="section" id="data-types">
+<h2>Data types<a class="headerlink" href="#data-types" title="Permalink to this headline">¶</a></h2>
+<p>JavaScript is very straightforward when it comes to data types. The most important ones are:</p>
+<ul class="simple">
+<li>Number: <tt class="docutils literal"><span class="pre">1</span></tt>, <tt class="docutils literal"><span class="pre">2</span></tt> etc.</li>
+<li>String: <tt class="docutils literal"><span class="pre">&quot;foo&quot;</span></tt>, <tt class="docutils literal"><span class="pre">'bar'</span></tt> etc. - strings are wrapped in <tt class="docutils literal"><span class="pre">'</span></tt> or <tt class="docutils literal"><span class="pre">&quot;</span></tt>.</li>
+<li>Boolean: <tt class="docutils literal"><span class="pre">true</span></tt>, <tt class="docutils literal"><span class="pre">false</span></tt></li>
+<li>Object: Key-value pairs, e.g. <tt class="docutils literal"><span class="pre">{'foo':</span> <span class="pre">'bar',</span> <span class="pre">'n':</span> <span class="pre">1}</span></tt></li>
+<li>Array: List of values, e.g. <tt class="docutils literal"><span class="pre">[1,</span> <span class="pre">&quot;a&quot;,</span> <span class="pre">2,</span> <span class="pre">&quot;b&quot;]</span></tt></li>
+</ul>
+<div class="section" id="getting-values-from-objects-or-arrays">
+<h3>Getting values from objects or arrays<a class="headerlink" href="#getting-values-from-objects-or-arrays" title="Permalink to this headline">¶</a></h3>
+<p>There are different ways. Here is what we can do:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;foo&#39;</span><span class="o">:</span> <span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="s1">&#39;n&#39;</span><span class="o">:</span> <span class="mi">1</span><span class="p">};</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">a</span><span class="p">.</span><span class="nx">foo</span><span class="p">);</span> <span class="c1">// &#39;bar&#39;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">a</span><span class="p">[</span><span class="s1">&#39;n&#39;</span><span class="p">]);</span> <span class="c1">// 1</span>
+<span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">key</span> <span class="k">in</span> <span class="nx">a</span><span class="p">)</span> <span class="p">{</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">a</span><span class="p">[</span><span class="nx">key</span><span class="p">]);</span> <span class="p">};</span> <span class="c1">// Two lines: &#39;bar&#39; and 1.</span>
+
+<span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">];</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">b</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span> <span class="c1">// 1</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">b</span><span class="p">[</span><span class="mi">3</span><span class="p">]);</span> <span class="c1">// &quot;b&quot;</span>
+<span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="nx">b</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">;</span> <span class="o">--</span><span class="nx">i</span><span class="p">)</span> <span class="p">{</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">b</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span> <span class="p">};</span> <span class="c1">// Guess it!</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
+<p>Functions contain blocks of code, and can be passed arguments when they are called. We already saw a function built into JavaScript above (<tt class="docutils literal"><span class="pre">Math.random()</span></tt>), and here is a custom one with an argument:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">function</span> <span class="nx">hello</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// name is the argument</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Hello &#39;</span> <span class="o">+</span> <span class="nx">name</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="nx">hello</span><span class="p">(</span><span class="s1">&#39;John&#39;</span><span class="p">);</span> <span class="c1">// prints &#39;Hello John&#39;</span>
+</pre></div>
+</div>
+<p class="rubric">Task</p>
+<p>Now that you are familiar with the concepts, implement the &#8220;FizzBuzz&#8221; exercise:</p>
+<p>Write a program that prints the numbers from 1 to 100. But for multiples of three print &#8220;Fizz&#8221; instead of the number and for the multiples of five print &#8220;Buzz&#8221;. For numbers which are multiples of both three and five print &#8220;FizzBuzz&#8221;. (Credit: <a class="reference external" href="http://www.codinghorror.com/blog/2007/02/why-cant-programmers-program.html">codinghorror.com</a>)</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Programming basics explained with JavaScript</a><ul>
+<li><a class="reference internal" href="#getting-started">Getting started</a></li>
+<li><a class="reference internal" href="#operators-math-but-not-only">Operators - Math, but not only</a><ul>
+<li><a class="reference internal" href="#basic-operators">Basic operators</a></li>
+<li><a class="reference internal" href="#comparison-operators">Comparison operators</a></li>
+<li><a class="reference internal" href="#logical-operators">Logical operators</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#variables">Variables</a></li>
+<li><a class="reference internal" href="#flow-of-execution">Flow of execution</a><ul>
+<li><a class="reference internal" href="#conditional-execution">Conditional execution</a></li>
+<li><a class="reference internal" href="#iterate-over-a-block">Iterate over a block</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#data-types">Data types</a><ul>
+<li><a class="reference internal" href="#getting-values-from-objects-or-arrays">Getting values from objects or arrays</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#functions">Functions</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">JavaScript Basics for Geospatial Web Applications</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="debugging.html"
+                        title="next chapter">Developing and Debugging JavaScript</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="debugging.html" title="Developing and Debugging JavaScript"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="JavaScript Basics for Geospatial Web Applications"
+             >previous</a> |</li>
+        <li><a href="index.html">JavaScript Workshop</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Boundless.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b3.
+    </div>
+  </body>
+</html>
