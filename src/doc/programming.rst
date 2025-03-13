@@ -50,6 +50,15 @@ Obviously the ``+`` operator is also used to concatenate strings (coding jargon 
 
 Other math operators include ``*`` (multiplication), ``/`` (division) and ``%`` (modulo).
 
+To find out if a number is a multiple of 3, you can use the modulo (``%``) operator. When you divide a number by another, the modulo operator returns the remainder:
+
+.. code-block:: javascript
+
+    console.log(9 % 3); // 0
+    console.log(10 % 3); // 1
+
+So for numbers that are multiples of 3, the modulo operator will return 0.
+
 Comparison operators
 ~~~~~~~~~~~~~~~~~~~~
 
